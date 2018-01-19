@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Creamos un layout de tipo "MENU" para configurar los items de la ToolBar de la actividad "MainActivity".-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/opt_instrucciones"
+        android:title="@string/instrucciones"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/opt_listadolibros"
+        android:title="@string/listalibros"
+        app:showAsAction="never"/>
+
+</menu>

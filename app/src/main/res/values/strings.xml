@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LectorLibros</string>
+    <string name="instrucciones">Instrucciones</string>
+    <string name="listalibros">Lista de libros</string>
+    <string name="buscar">BUSCAR</string>
+    <string name="titulo">TÍTULO</string>
+    <string name="autor">AUTOR</string>
+    <string name="lista">LISTA DE LIBROS</string>
 </resources>
