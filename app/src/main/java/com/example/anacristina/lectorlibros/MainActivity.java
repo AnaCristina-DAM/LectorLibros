@@ -1,5 +1,6 @@
 package com.example.anacristina.lectorlibros;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -59,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
     // Configuramos las opciones del menú:
     @Override
     public boolean onOptionsItemSelected(MenuItem opcion_menu) {
+        int opcion = opcion_menu.getItemId();
+        if(opcion == R.id.opt_listadolibros){
+            Intent intent = new Intent(MainActivity.this, ListaActivity.class);
+            startActivity(intent);
+        }
+
+
+
+
+
         return false;
     }
 
