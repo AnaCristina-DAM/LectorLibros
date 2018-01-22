@@ -43,7 +43,7 @@ public class ListaActivity extends AppCompatActivity {
         lst_libros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //hola
+                
             }
         });
         lst_libros.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
