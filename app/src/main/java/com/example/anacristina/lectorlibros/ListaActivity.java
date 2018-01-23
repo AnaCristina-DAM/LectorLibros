@@ -49,6 +49,7 @@ public class ListaActivity extends AppCompatActivity {
         lst_libros.setAdapter(adaptador);
         // Ponemos los items de la lista a la escucha y establecemos los métodos "OnItemClickListener" y
         // "OnItemLongClickListener" para que actúen según los requisitos de la aplicación:
+        // > OnItemClickListener - ABRIR EL LIBRO:
         lst_libros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -61,16 +62,22 @@ public class ListaActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        // > OnLongClickListener - BORRAR EL LIBRO:
         lst_libros.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int position, long id) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(ListaActivity.this);//Se crea el dialogo
-                builder.setMessage("¿Quiere eliminar este libro?");//Se le añade un mensaje
-                builder.setTitle("¿Estás seguro?");//Se le añade un titulo
+                // Se crea el diálogo:
+                AlertDialog.Builder builder= new AlertDialog.Builder(ListaActivity.this);
+                // Se le añade un icono:
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                // Se le añade un mensaje:
+                builder.setMessage(R.string.borrar_mensaje);
+                // Se le añade un título:
+                builder.setTitle(R.string.borrar_titulo);
                 /**
                  * Se crea el boton negativo
                  */
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         dialog.cancel();
@@ -79,7 +86,7 @@ public class ListaActivity extends AppCompatActivity {
                 /**
                  * Se crea el boton positivo
                  */
-                builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
@@ -88,23 +95,29 @@ public class ListaActivity extends AppCompatActivity {
 
                         String path = Environment.getExternalStorageDirectory()+ File.separator;
                         File f = new File(path);
-                        //obtiene nombres de archivos dentro del directorio.
-                        File file[] = f.listFiles();
-                        for (int x=0; x < file.length; x++)
-                        {
-                            if (file[x].isFile()){
-                                String nombre;
-                                nombre = file[x].getName();
-                                if (nombre.equals(titulo)){
-                                    file[x].delete();
-                                }
-                            }
 
+                        // Obtiene los nombres de archivos dentro del directorio.
+                        File file[] = f.listFiles();
+                        if (file != null){
+                            for (int x=0; x < file.length; x++)
+                            {
+                                if (file[x].isFile()){
+                                    String nombre;
+                                    nombre = file[x].getName();
+                                    if (nombre.equals(titulo)){
+                                        file[x].delete();
+                                    }
+                                }
+
+                            }
                         }
-                        //Configura Adapter a ListView.
-                        lista_libros.remove(position);//Se borra el elemento de la lista
-                        adaptador.notifyDataSetChanged();//Se actualiza el adaptador de la lista
-                        //lst_libros.setAdapter(adaptador);
+
+                        //Configurar "Adapter" a "ListView":
+                        // Se borra el elemento de la lista:
+                        lista_libros.remove(position);
+                        // Se actualiza el adaptador de la lista:
+                        adaptador.notifyDataSetChanged();
+
                     }
                 });
                 builder.show();
@@ -124,10 +137,10 @@ public class ListaActivity extends AppCompatActivity {
 
     private void listarTXT(){
         List<String> list = new ArrayList<String>();
-        //obtiene ruta donde se encuentran los archivos.
+        // Obtenemos la ruta dónde se encuentran los archivos:
         String path = Environment.getExternalStorageDirectory()+ File.separator;
         File f = new File(path);
-        //obtiene nombres de archivos dentro del directorio.
+        // Obtenemos los nombres de los archivos dentro del directorio:
         File file[] = f.listFiles();
         if (file != null){
             for (int i=0; i < file.length; i++)
@@ -137,13 +150,12 @@ public class ListaActivity extends AppCompatActivity {
                     nombre = file[i].getName();
                     texto = GestionFicheros.leerFichero(nombre);
                     Libro libro = new Libro(nombre,texto);
-                    // adaptador.add(libro.getTitulo());
                     lista_libros.add(libro);
                 }
             }
         }
 
-        //Configura Adapter a ListView.
+        //Configura "Adapter" a "ListView":
         lst_libros.setAdapter(adaptador);
     }
 

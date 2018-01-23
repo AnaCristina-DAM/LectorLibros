@@ -1,9 +1,24 @@
 <resources>
+    <!-- Nombre de la aplicación. -->
     <string name="app_name">LectorLibros</string>
+    <!-- Menú. -->
     <string name="instrucciones">Instrucciones</string>
     <string name="listalibros">Lista de libros</string>
+    <!-- Pantalla principal. -->
     <string name="buscar">BUSCAR</string>
     <string name="titulo">TÍTULO</string>
     <string name="autor">AUTOR</string>
+    <!-- Mensaje de instrucciones. -->
+    <string name="instrucciones_titulo">INSTRUCCIONES</string>
+    <string name="instrucciones_mensaje">Esta aplicación permite al usuario descargar libros en formato "TXT"
+                                         y añadirlos a una lista para que, posteriormente, pueda visualizar su
+                                         contenido y reproducirlos. También será posible eliminar libros de la
+                                         lista.</string>
+    <!-- Lista de libros. -->
     <string name="lista">LISTA DE LIBROS</string>
+    <!-- Borrar libros. -->
+    <string name="si">SI</string>
+    <string name="no">NO</string>
+    <string name="borrar_titulo">¿ESTÁS SEGURO?</string>
+    <string name="borrar_mensaje">¿Quiere eliminar este libro?</string>
 </resources>

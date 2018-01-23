@@ -17,7 +17,7 @@ import java.io.OutputStreamWriter;
 
 public class GestionFicheros {
 
-    //Si solo podremos leer de la targeta SD
+    // Si sólo podremos leer de la targeta SD:
     public static boolean isExternalStorageReadOnly() {
         String extStorageState = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
@@ -26,7 +26,7 @@ public class GestionFicheros {
         return false;
     }
 
-    //Si el dispositivo tiene una targeta SD
+    // Si el dispositivo tiene una targeta SD:
     public static boolean isExternalStorageAvailable() {
         String extStorageState = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
@@ -35,7 +35,7 @@ public class GestionFicheros {
         return false;
     }
 
-    //Metodo que vamos a utilizar para escribir un fichero
+    // Método que vamos a utilizar para escribir un fichero:
     public static void escribirFichero(String nombre, String texto){
         try {
             if (isExternalStorageAvailable() && !isExternalStorageReadOnly()) {
@@ -50,6 +50,7 @@ public class GestionFicheros {
         }
     }
 
+    // Método que vamos a utilizar para leer un fichero:
     public static String leerFichero(String nombre){
         try{
             if(isExternalStorageAvailable()){
