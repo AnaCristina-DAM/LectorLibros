@@ -1,17 +1,26 @@
 package com.example.anacristina.lectorlibros;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AlignmentSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView lb_autor;
     private EditText txt_autor;
     private Button bt_buscar;
+
+    // CONSTANTE UTILIZADA PARA SOLICITAR PERMISOS DE ALMACENAMIENTO:
+    private static final int P_ALMACENAMIENTO = 1 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +60,38 @@ public class MainActivity extends AppCompatActivity {
         // BOTON - Buscar:
         bt_buscar = (Button) findViewById(R.id.bt_buscar);
 
+        // Comprobamos los permisos:
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, P_ALMACENAMIENTO);
+        }
+
+    }
+
+    // Resultado de la solicitud de permisos:
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case P_ALMACENAMIENTO: {
+                // Si la solicitud es cancelada, no se otorgarán permisos a la aplicación y el array resultante estará vacío.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // PERMISOS OTORGADOS:
+                    String text = getResources().getString(R.string.permisos_otorgados);
+                    Spannable centeredText = new SpannableString(text);
+                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Toast.makeText( this, centeredText, Toast.LENGTH_SHORT ).show();
+                }
+                else {
+                    // PERMISOS DENEGADOS:
+                    String text = getResources().getString(R.string.permisos_denegados);
+                    Spannable centeredText = new SpannableString(text);
+                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Toast.makeText( this, centeredText, Toast.LENGTH_SHORT ).show();
+                    // Cerramos la aplicación:
+                    finish();
+                }
+                return;
+            }
+        }
     }
 
     // Inflamos el layout para mostrar los items del menú:
@@ -87,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         // LISTA DE LIBROS:
         if(opcion == R.id.opt_listadolibros){
+            // Lanzamos una nueva actividad donde el usuario podrá visualizar la lista de libros almacenados.
             Intent intent = new Intent(MainActivity.this, ListaActivity.class);
             startActivity(intent);
         }

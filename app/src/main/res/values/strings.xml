@@ -4,6 +4,9 @@
     <!-- Menú. -->
     <string name="instrucciones">Instrucciones</string>
     <string name="listalibros">Lista de libros</string>
+    <!-- Pemisos. -->
+    <string name="permisos_otorgados">PERMISOS OTORGADOS.</string>
+    <string name="permisos_denegados">DEBE CONCEDER PERMISOS A LA APLICACIÓN PARA PODER UTILIZARLA.</string>
     <!-- Pantalla principal. -->
     <string name="buscar">BUSCAR</string>
     <string name="titulo">TÍTULO</string>
@@ -21,4 +24,6 @@
     <string name="no">NO</string>
     <string name="borrar_titulo">¿ESTÁS SEGURO?</string>
     <string name="borrar_mensaje">¿Quiere eliminar este libro?</string>
+    <!-- Reproducir libros. -->
+    <string name="error">ERROR: DATOS PERDIDOS | NO SOPORTADO</string>
 </resources>

@@ -33,7 +33,6 @@ public class ListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
 
-
         // Referenciamos los distintos elementos del layout:
 
         // LAYOUT:
@@ -47,8 +46,10 @@ public class ListaActivity extends AppCompatActivity {
         // Creamos un adaptador para poder visualizar los libros en la "ListView":
         adaptador = new ArrayAdapter(this,android.R.layout.simple_list_item_1,lista_libros);
         lst_libros.setAdapter(adaptador);
+
         // Ponemos los items de la lista a la escucha y establecemos los métodos "OnItemClickListener" y
         // "OnItemLongClickListener" para que actúen según los requisitos de la aplicación:
+
         // > OnItemClickListener - ABRIR EL LIBRO:
         lst_libros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -62,6 +63,7 @@ public class ListaActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         // > OnLongClickListener - BORRAR EL LIBRO:
         lst_libros.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -90,17 +92,18 @@ public class ListaActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
+                        // Seleccionamos el libro:
                         Libro libro_selec =  lista_libros.get(position);
                         String titulo = libro_selec.getTitulo().toString();
 
+                        // Obtenemos el directorio:
                         String path = Environment.getExternalStorageDirectory()+ File.separator;
                         File f = new File(path);
 
-                        // Obtiene los nombres de archivos dentro del directorio.
+                        // Obtemos los nombres de archivos dentro del directorio y borramos el libro seleccionado:
                         File file[] = f.listFiles();
                         if (file != null){
-                            for (int x=0; x < file.length; x++)
-                            {
+                            for (int x=0; x < file.length; x++){
                                 if (file[x].isFile()){
                                     String nombre;
                                     nombre = file[x].getName();
@@ -108,26 +111,27 @@ public class ListaActivity extends AppCompatActivity {
                                         file[x].delete();
                                     }
                                 }
-
                             }
                         }
 
                         //Configurar "Adapter" a "ListView":
-                        // Se borra el elemento de la lista:
+                        // > Se borra el elemento de la lista:
                         lista_libros.remove(position);
-                        // Se actualiza el adaptador de la lista:
+                        // > Se actualiza el adaptador de la lista:
                         adaptador.notifyDataSetChanged();
 
                     }
                 });
                 builder.show();
+
                 // Para evitar que se ejecute también el código del método "onClick", devolvemos un valor booleano "TRUE".
                 return true;
+
             }
 
         });
 
-        //Generacion de txt's de prueba
+        //Generacion de TXT's de prueba:
         //GestionFicheros.escribirFichero("Primero.txt","Este es el primer texto");
         //GestionFicheros.escribirFichero("Segundo.txt","Y este el segundo");
 
@@ -135,12 +139,16 @@ public class ListaActivity extends AppCompatActivity {
 
     }
 
+    // Método que muestra los libros en la lista:
     private void listarTXT(){
+
         List<String> list = new ArrayList<String>();
+
         // Obtenemos la ruta dónde se encuentran los archivos:
         String path = Environment.getExternalStorageDirectory()+ File.separator;
         File f = new File(path);
-        // Obtenemos los nombres de los archivos dentro del directorio:
+
+        // Obtenemos los nombres de los archivos dentro del directorio y los añadimos a la lista:
         File file[] = f.listFiles();
         if (file != null){
             for (int i=0; i < file.length; i++)
@@ -155,7 +163,7 @@ public class ListaActivity extends AppCompatActivity {
             }
         }
 
-        //Configura "Adapter" a "ListView":
+        //Configurar "Adapter" a "ListView":
         lst_libros.setAdapter(adaptador);
     }
 

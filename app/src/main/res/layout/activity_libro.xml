@@ -40,12 +40,12 @@
         android:id="@+id/bt_reproducir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="14dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/btn_circle"
         android:onClick="escuchar"
-        app:srcCompat="@drawable/audio" />
+        app:srcCompat="@drawable/audio"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
