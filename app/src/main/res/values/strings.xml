@@ -17,6 +17,7 @@
                                          y añadirlos a una lista para que, posteriormente, pueda visualizar su
                                          contenido y reproducirlos. También será posible eliminar libros de la
                                          lista.</string>
+    <string name="ok">OK</string>
     <!-- Lista de libros. -->
     <string name="lista">LISTA DE LIBROS</string>
     <!-- Borrar libros. -->

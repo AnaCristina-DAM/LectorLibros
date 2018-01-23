@@ -114,9 +114,18 @@ public class MainActivity extends AppCompatActivity {
 
             // Creamos el mensaje con las instrucciones del juego:
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.instrucciones_titulo);
-            builder.setMessage(R.string.instrucciones_mensaje);
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            // TÍTULO:
+            String titulo = getResources().getString(R.string.instrucciones_titulo);
+            Spannable centeredTitulo = new SpannableString(titulo);
+            centeredTitulo.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, titulo.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            builder.setTitle(centeredTitulo);
+            // MENSAJE:
+            String texto = getResources().getString(R.string.instrucciones_mensaje);
+            Spannable centeredTexto = new SpannableString(texto);
+            centeredTexto.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, texto.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            builder.setMessage(centeredTexto);
+            // BOTÓN POSITIVO:
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int id){
                     dialog.cancel();
                 }
