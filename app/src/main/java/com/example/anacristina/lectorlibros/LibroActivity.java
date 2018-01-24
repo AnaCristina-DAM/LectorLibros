@@ -64,7 +64,7 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
     {
         if ( status == TextToSpeech.LANG_MISSING_DATA | status == TextToSpeech.LANG_NOT_SUPPORTED )
         {
-            String text = getResources().getString(R.string.error);
+            String text = getResources().getString(R.string.rp_error);
             Spannable centeredText = new SpannableString(text);
             centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
             Toast.makeText( this, centeredText, Toast.LENGTH_SHORT ).show();

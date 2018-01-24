@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/opt_instrucciones"
-        android:title="@string/instrucciones"
+        android:title="@string/app_instrucciones"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/opt_listadolibros"
-        android:title="@string/listalibros"
+        android:title="@string/app_listalibros"
         app:showAsAction="never"/>
 
 </menu>

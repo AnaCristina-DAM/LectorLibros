@@ -79,7 +79,7 @@ public class ListaActivity extends AppCompatActivity {
                 /**
                  * Se crea el boton negativo.
                  */
-                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.lb_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         dialog.cancel();
@@ -88,7 +88,7 @@ public class ListaActivity extends AppCompatActivity {
                 /**
                  * Se crea el boton positivo.
                  */
-                builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.lb_si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
 
