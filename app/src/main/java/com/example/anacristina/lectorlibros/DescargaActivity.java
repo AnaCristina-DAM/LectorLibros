@@ -25,7 +25,6 @@ import java.net.URL;
 
 
 public class DescargaActivity extends AppCompatActivity {
-
     TextView tb_titulo,tb_autor,tb_isbn;
     Button bt_descargar;
     JSONObject libro;
@@ -35,17 +34,13 @@ public class DescargaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_descarga );
-
         libro= new JSONObject();
-
         tb_isbn =(TextView) findViewById( R.id.tb_isbn );
         tb_titulo =(TextView) findViewById( R.id.tb_titulo );
         tb_autor = (TextView) findViewById( R.id.tb_autor );
         bt_descargar =(Button) findViewById( R.id.bt_descargar );
-
         descargarlibro = new DescargarLibro();
         String datoslibro = getIntent().getExtras().getString( "datoslibro" );
-
         try {
             libro = new JSONObject( datoslibro );
             tb_isbn.setText(libro.get( "isbn" ).toString());
@@ -65,23 +60,17 @@ public class DescargaActivity extends AppCompatActivity {
             }
         } );
     }
-
     public class DescargarLibro extends AsyncTask<String,Integer,String> {
-
         @Override
         protected String doInBackground(String... strings) {
-
             String linea = null;
             HttpURLConnection con = null;
-            String cadenaUrl = "http://192.168.1.34/librolectormaster/";
-
+            String cadenaUrl = "http://mywebmario.000webhostapp.com/lectorlibrosmaster/";
             try {
-
                 String estado = Environment.getExternalStorageState();
 
                 boolean sdDisponible = false;
                 boolean sdEscribir = false;
-
                 if(estado.equals(Environment.MEDIA_MOUNTED)) {
                     sdDisponible = true;
                     sdEscribir = true;
@@ -97,13 +86,12 @@ public class DescargaActivity extends AppCompatActivity {
                     sdEscribir = false;
                 }
 
-                if(sdDisponible && sdEscribir) {
 
+                if(sdDisponible && sdEscribir) {
                     StringBuilder resultado = new StringBuilder();
                     URL url = new URL( cadenaUrl + strings[0] );
                     con = (HttpURLConnection) url.openConnection();
                     BufferedReader reader = new BufferedReader( new InputStreamReader( con.getInputStream() ) );
-
                     while ((linea = reader.readLine()) != null) {
                         resultado.append( linea + "\n" );
                     }
@@ -125,7 +113,6 @@ public class DescargaActivity extends AppCompatActivity {
 
                     String[] lineas = resultado.toString().split( "\n" );
                     String separator = System.getProperty( "line.separator" );
-
                     for (String lineaArchivo : lineas) {
                         archivoSalida.write( lineaArchivo );
                         archivoSalida.write( separator );
@@ -144,11 +131,9 @@ public class DescargaActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute( s );
-            Toast.makeText( getApplicationContext(),"Descarga completada",Toast.LENGTH_SHORT ).show();
+            Toast.makeText( getApplicationContext(),"Descarga completad",Toast.LENGTH_SHORT ).show();
             Intent intent = new Intent(getApplicationContext(),BibliotecaActivity.class);
             startActivity( intent );
         }
-
     }
-
 }
