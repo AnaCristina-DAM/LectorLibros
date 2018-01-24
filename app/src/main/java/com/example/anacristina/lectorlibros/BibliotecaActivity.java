@@ -15,19 +15,23 @@ import java.util.ArrayList;
 
 
 public class BibliotecaActivity extends AppCompatActivity {
+
     ListView listalibros;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_biblioteca );
-        listalibros =(ListView) findViewById( R.id.listalibros );
-        final File rutaSD = new File( Environment.getExternalStorageDirectory().getAbsolutePath());
 
+        listalibros =(ListView) findViewById( R.id.listalibros );
+
+        final File rutaSD = new File( Environment.getExternalStorageDirectory().getAbsolutePath());
         final File rutaLibros = new File( rutaSD, "libros" );
 
         if (!rutaLibros.exists()) {
             rutaLibros.mkdir();
         }
+
         ArrayList<String> libros = new ArrayList<>( );
         for (File libro: rutaLibros.listFiles()) {
             libros.add( libro.getName().replace( ".txt", "" ));

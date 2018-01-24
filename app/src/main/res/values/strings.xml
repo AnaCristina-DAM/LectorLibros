@@ -1,16 +1,21 @@
 <resources>
+
     <!-- Nombre de la aplicación. -->
     <string name="app_name">LectorLibros</string>
+
     <!-- Menú. -->
-    <string name="instrucciones">Instrucciones</string>
-    <string name="listalibros">Lista de libros</string>
+    <string name="app_instrucciones">Instrucciones</string>
+    <string name="app_listalibros">Lista de libros</string>
+
     <!-- Pemisos. -->
     <string name="permisos_otorgados">PERMISOS OTORGADOS.</string>
     <string name="permisos_denegados">DEBE CONCEDER PERMISOS A LA APLICACIÓN PARA PODER UTILIZARLA.</string>
+
     <!-- Pantalla principal. -->
-    <string name="buscar">BUSCAR</string>
-    <string name="titulo">TÍTULO</string>
-    <string name="autor">AUTOR</string>
+    <string name="ppal_buscar">BUSCAR</string>
+    <string name="ppal_titulo">TÍTULO</string>
+    <string name="ppal_autor">AUTOR</string>
+
     <!-- Mensaje de instrucciones. -->
     <string name="instrucciones_titulo">INSTRUCCIONES</string>
     <string name="instrucciones_mensaje">Esta aplicación permite al usuario descargar libros en formato "TXT"
@@ -18,13 +23,25 @@
                                          contenido y reproducirlos. También será posible eliminar libros de la
                                          lista.</string>
     <string name="ok">OK</string>
+
+    <!-- Descargar libros. -->
+    <string name="b_isbn">ISBN</string>
+    <string name="b_titulo">TÍTULO</string>
+    <string name="b_autor">AUTOR</string>
+    <string name="b_texto">TEXTO</string>
+    <string name="b_descargar">DESCARGAR</string>
+
     <!-- Lista de libros. -->
-    <string name="lista">LISTA DE LIBROS</string>
-    <!-- Borrar libros. -->
-    <string name="si">SI</string>
-    <string name="no">NO</string>
+    <string name="lst_lista">LISTA DE LIBROS</string>
+
+    <!-- Libros. -->
+    <string name="lb_titulo">TITULO</string>
+    <string name="lb_si">SI</string>
+    <string name="lb_no">NO</string>
     <string name="borrar_titulo">¿ESTÁS SEGURO?</string>
     <string name="borrar_mensaje">¿Quiere eliminar este libro?</string>
+
     <!-- Reproducir libros. -->
-    <string name="error">ERROR: DATOS PERDIDOS | NO SOPORTADO</string>
+    <string name="rp_error">ERROR: DATOS PERDIDOS | NO SOPORTADO</string>
+
 </resources>

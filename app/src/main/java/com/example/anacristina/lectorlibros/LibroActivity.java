@@ -89,7 +89,6 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
         //Log.v("VOZ", textToSpeech.getVoice().getName());
         //for (Voice voice: textToSpeech.getVoices()) {
         //  Log.v("Voz",voice.getName());
-        //
         //}
 
     }

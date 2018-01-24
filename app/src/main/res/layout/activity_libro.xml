@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
-        android:text="TÍTULO"
+        android:text="@string/lb_titulo"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"

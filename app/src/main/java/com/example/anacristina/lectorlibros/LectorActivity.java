@@ -19,16 +19,21 @@ import java.util.Locale;
 
 
 public class LectorActivity extends AppCompatActivity {
+
+    Button bt_leer,bt_parar;
     TextToSpeech lector;
     ArrayList<String> lineaslibro;
-    Button bt_leer,bt_parar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_lector );
+
         lineaslibro = new ArrayList<>(  );
+
         bt_leer =(Button) findViewById( R.id.bt_leer );
         bt_parar = (Button) findViewById( R.id.bt_stop );
+
         lector = new TextToSpeech( this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -37,7 +42,9 @@ public class LectorActivity extends AppCompatActivity {
                 }
             }
         } );
+
         String rutaarchivo = getIntent().getExtras().getString( "rutaarchivo" );
+
         File fichero =new File( rutaarchivo );
         try {
             BufferedReader reader = new BufferedReader( new FileReader(fichero  ));
@@ -50,7 +57,8 @@ public class LectorActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-/*
+
+        /*
         lector.setOnUtteranceProgressListener( new UtteranceProgressListener() {
             @Override
             public void onStart(String s) {
@@ -68,6 +76,7 @@ public class LectorActivity extends AppCompatActivity {
             }
         } );
         */
+
         bt_leer.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
