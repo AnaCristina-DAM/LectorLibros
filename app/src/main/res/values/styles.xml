@@ -7,8 +7,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorGray</item>
-        <item name="colorAccent">@color/colorGreen</item>
-        <item name="android:toolbarStyle">@color/colorGreen</item>
+        <item name="colorAccent">@color/colorRed</item>
+        <item name="android:toolbarStyle">@color/colorRed</item>
     </style>
 
 </resources>
