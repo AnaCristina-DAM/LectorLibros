@@ -77,7 +77,7 @@ public class ListaActivity extends AppCompatActivity {
                 // Se le añade un título:
                 builder.setTitle(R.string.borrar_titulo);
                 /**
-                 * Se crea el boton negativo
+                 * Se crea el boton negativo.
                  */
                 builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
@@ -86,7 +86,7 @@ public class ListaActivity extends AppCompatActivity {
                     }
                 });
                 /**
-                 * Se crea el boton positivo
+                 * Se crea el boton positivo.
                  */
                 builder.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                     @Override
