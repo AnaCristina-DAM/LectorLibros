@@ -54,12 +54,18 @@ public class ListaActivity extends AppCompatActivity {
         lst_libros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //Creacion de un intent.
                 Intent i = new Intent (getApplicationContext(), LibroActivity.class);
+                //Obtencion del libro seleccionado
                 Libro libro_selec =  lista_libros.get(position);
+                //Obtencion del titulo de dicho libro.
                 String titulo = libro_selec.getTitulo().toString();
+                //Obtencion del texto de dicho libro.
                 String texto = libro_selec.getTexto().toString();
+                //Mandar titulo y texto en el intent.
                 i.putExtra("titulo", titulo);
                 i.putExtra("texto", texto);
+                //Iniciar intent.
                 startActivity(i);
             }
         });
