@@ -51,9 +51,11 @@ public class DescargaActivity extends AppCompatActivity {
             tb_isbn.setText(libro.get( "isbn" ).toString());
             tb_titulo.setText( libro.get( "titulo" ).toString() );
             tb_autor.setText( libro.get( "autor" ).toString() );
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
+
         bt_descargar.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,33 +106,55 @@ public class DescargaActivity extends AppCompatActivity {
                     con = (HttpURLConnection) url.openConnection();
                     BufferedReader reader = new BufferedReader( new InputStreamReader( con.getInputStream() ) );
 
-                    while ((linea = reader.readLine()) != null) {
-                        resultado.append( linea + "\n" );
-                    }
 
-                    File rutaSD = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                    // TITULO:
+                    String titulo;
+                    titulo = strings[0].replace( "libros/", "" );
 
-                    File rutaLibros = new File( rutaSD, "libros" );
+                    // TEXTO:
 
-                    if (!rutaLibros.exists()) {
-                        rutaLibros.mkdir();
-                    }
-
-                    File archivo = new File( rutaLibros,
-                            strings[0].replace( "libros/", "" ) );
-
-                    OutputStreamWriter archivoSalida = new OutputStreamWriter(
-                            new FileOutputStream( archivo ) );
-                    System.out.println( archivo.getAbsoluteFile() );
-
-                    String[] lineas = resultado.toString().split( "\n" );
+                    String texto = "";
                     String separator = System.getProperty( "line.separator" );
 
-                    for (String lineaArchivo : lineas) {
-                        archivoSalida.write( lineaArchivo );
-                        archivoSalida.write( separator );
+                    int x = 1;
+                    while ((linea = reader.readLine()) != null) {
+                        if (x > 5){
+                            texto = texto + ".-." + linea;
+                        }
+                        x++;
                     }
-                    archivoSalida.close();
+
+                    // Guardamos el archivo:
+                    GestionFicheros.escribirFichero(titulo,texto);
+
+
+                    //while ((linea = reader.readLine()) != null) {
+                    //    resultado.append( linea + "\n" );
+                    //    System.out.println(linea);
+                    //}
+
+                    // File rutaSD = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                    // File rutaLibros = new File( rutaSD, "libros" );
+
+                    // if (!rutaLibros.exists()) {
+                    //    rutaLibros.mkdir();
+                    // }
+
+                    // File archivo = new File( rutaLibros, strings[0].replace( "libros/", "" ) );
+
+                    // OutputStreamWriter archivoSalida = new OutputStreamWriter( new FileOutputStream( archivo ) );
+                    // System.out.println( archivo.getAbsoluteFile() );
+
+                    // String[] lineas = resultado.toString().split( "\n" );
+                    // String separator = System.getProperty( "line.separator" );
+
+                    // for (String lineaArchivo : lineas) {
+                    //    archivoSalida.write( lineaArchivo );
+                    //    archivoSalida.write( separator );
+                    // }
+                    // archivoSalida.close();
+
+
                 }
 
             } catch (MalformedURLException e) {
@@ -145,7 +169,7 @@ public class DescargaActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute( s );
             Toast.makeText( getApplicationContext(),"Descarga completada.",Toast.LENGTH_SHORT ).show();
-            Intent intent = new Intent(getApplicationContext(),BibliotecaActivity.class);
+            Intent intent = new Intent(getApplicationContext(),ListaActivity.class);
             startActivity( intent );
         }
 

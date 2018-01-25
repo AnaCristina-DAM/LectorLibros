@@ -3,6 +3,7 @@ package com.example.anacristina.lectorlibros;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Layout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,6 +27,7 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
 
     String titulo;
     String texto;
+    String [] cadena;
 
     private TextToSpeech textToSpeech;
 
@@ -48,11 +50,19 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
         // BOTON - Reproducir:
         bt_reproducir = (ImageButton) findViewById(R.id.bt_reproducir);
 
-        // Recuperamos el "Intent" lanzado por la actividad que contiene la lista de libros y mostramos los datos del libro seleccionado.
+        // Recuperamos el "Intent" lanzado por la actividad que contiene la lista de libros.
         titulo = getIntent().getStringExtra("titulo");
         texto = getIntent().getStringExtra("texto");
+
+        // Mostramos los datos del libro seleccionado:
         lb_libro.setText(titulo.toString());
-        txt_libro.setText(texto.toString());
+
+        cadena = texto.split(".-.");
+
+        String nuevalinea = System.getProperty("line.separator");
+        for (int i = 0; i < cadena.length; i++){
+            txt_libro.append(cadena[i] + nuevalinea);
+        }
 
         textToSpeech = new TextToSpeech( this, this );
 
@@ -73,8 +83,17 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
 
     // Método que permite reproducir el texto del libro en ESPAÑOL.
     public void escuchar(View v){
+
         textToSpeech.setLanguage( new Locale( "spa", "ESP" ) );
-        speak( txt_libro.getText().toString() );
+
+        int i=0;
+        while (i < cadena.length){
+            textToSpeech.speak( cadena[i] , TextToSpeech.QUEUE_ADD, null, null );
+            i=i+1;
+        }
+
+        // speak( texto );
+
     }
 
     // Método que reproduce el texto del libro.
@@ -86,10 +105,10 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
         textToSpeech.setSpeechRate(0.0f);
         textToSpeech.setPitch(0.0f);
 
-        //Log.v("VOZ", textToSpeech.getVoice().getName());
-        //for (Voice voice: textToSpeech.getVoices()) {
+        // Log.v("VOZ", textToSpeech.getVoice().getName());
+        // for (Voice voice: textToSpeech.getVoices()) {
         //  Log.v("Voz",voice.getName());
-        //}
+        // }
 
     }
 

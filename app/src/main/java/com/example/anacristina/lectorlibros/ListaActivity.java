@@ -54,19 +54,28 @@ public class ListaActivity extends AppCompatActivity {
         lst_libros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
                 //Creacion de un intent.
                 Intent i = new Intent (getApplicationContext(), LibroActivity.class);
                 //Obtencion del libro seleccionado
                 Libro libro_selec =  lista_libros.get(position);
                 //Obtencion del titulo de dicho libro.
                 String titulo = libro_selec.getTitulo().toString();
+
                 //Obtencion del texto de dicho libro.
                 String texto = libro_selec.getTexto().toString();
+                // > Si el texto es muy largo, sólo guardamos los primeros 10000 caracteres:
+                if (texto.length()>5000){
+                    texto = texto.substring(0,5000);
+                }
+
                 //Mandar titulo y texto en el intent.
                 i.putExtra("titulo", titulo);
                 i.putExtra("texto", texto);
+
                 //Iniciar intent.
                 startActivity(i);
+
             }
         });
 
@@ -138,8 +147,8 @@ public class ListaActivity extends AppCompatActivity {
         });
 
         //Generacion de TXT's de prueba:
-        //GestionFicheros.escribirFichero("Primero.txt","Este es el primer texto.");
-        //GestionFicheros.escribirFichero("Segundo.txt","Y este el segundo.");
+        GestionFicheros.escribirFichero("Primero.txt","Este es el primer texto.");
+        GestionFicheros.escribirFichero("Segundo.txt","Y este el segundo.");
 
         listarTXT();
 
