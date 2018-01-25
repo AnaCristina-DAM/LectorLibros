@@ -138,8 +138,8 @@ public class ListaActivity extends AppCompatActivity {
         });
 
         //Generacion de TXT's de prueba:
-        //GestionFicheros.escribirFichero("Primero.txt","Este es el primer texto");
-        //GestionFicheros.escribirFichero("Segundo.txt","Y este el segundo");
+        //GestionFicheros.escribirFichero("Primero.txt","Este es el primer texto.");
+        //GestionFicheros.escribirFichero("Segundo.txt","Y este el segundo.");
 
         listarTXT();
 
