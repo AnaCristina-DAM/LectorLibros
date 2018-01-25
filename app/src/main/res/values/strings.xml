@@ -24,6 +24,10 @@
                                          lista.</string>
     <string name="ok">OK</string>
 
+    <!-- Conexión. -->
+    <string name="c_noConexion">EL DISPOSITIVO NO ESTÁ CONECTADO A INTERNET.</string>
+    <string name="c_noInternet">LA CONEXIÓN A INTERNET NO FUNCIONA ADECUADAMENTE.</string>
+
     <!-- Descargar libros. -->
     <string name="b_isbn">ISBN</string>
     <string name="b_titulo">TÍTULO</string>

@@ -1,9 +1,12 @@
 package com.example.anacristina.lectorlibros;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txt_autor;
     private Button bt_buscar;
 
-    BuscarLibro buscarlibro;
+    //BuscarLibro buscarlibro;
     JSONObject libro;
 
     // CONSTANTE UTILIZADA PARA SOLICITAR PERMISOS DE ALMACENAMIENTO:
@@ -94,24 +97,52 @@ public class MainActivity extends AppCompatActivity {
         // JSON:
         libro = new JSONObject(  );
 
-        // Objeto - DescargarLibro:
-        buscarlibro = new BuscarLibro();
-
         // BOTON - Buscar:
         bt_buscar = (Button) findViewById(R.id.bt_buscar);
         // Ponemos el botón "BUSCAR" en escucha:
         bt_buscar.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String titulo = txt_titulo.getText().toString();
-                String autor = txt_autor.getText().toString();
-                System.out.println(titulo);
-                if((titulo != null) && (!titulo.equals(""))) {
-                    buscarlibro.execute( "titulo", titulo );
-                }else if((autor != null) && (!autor.equals(""))){
-                    // buscarlibro.execute( "autor", autor );
-                }else{
-                    String text = getResources().getString(R.string.b_noDatos);
+
+                // Comprobamos si el dispositivo tiene conexión:
+                if(Conexion(MainActivity.this)){
+
+                    // Comprobamos si el dispositivo tiene acceso a Internet:
+                    //if(Internet()){
+
+                        String titulo = txt_titulo.getText().toString();
+                        String autor = txt_autor.getText().toString();
+
+                        if((titulo != null) && (!titulo.equals(""))) {
+
+                            // Iniciamos una tarea asíncrona para buscar el libro:
+                            BuscarLibro buscarlibro = new BuscarLibro();
+                            buscarlibro.execute( "titulo", titulo );
+
+                        }
+                        else if((autor != null) && (!autor.equals(""))){
+                            // Iniciamos una tarea asíncrona para buscar el libro:
+                            // BuscarLibro buscarlibro = new BuscarLibro();
+                            // buscarlibro.execute( "autor", autor );
+                        }
+                        else{
+                            String text = getResources().getString(R.string.b_noDatos);
+                            Spannable centeredText = new SpannableString(text);
+                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
+                        }
+
+                    //}
+                    //else{
+                    //    String text = getResources().getString(R.string.c_noConexion);
+                    //    Spannable centeredText = new SpannableString(text);
+                    //    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    //    Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
+                    //}
+
+                }
+                else{
+                    String text = getResources().getString(R.string.c_noConexion);
                     Spannable centeredText = new SpannableString(text);
                     centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                     Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
@@ -151,6 +182,32 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    // Método encargado de comprobar si el dispositivo tiene conexión:
+    public static boolean Conexion(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
+    }
+
+    // Método encargado de comprobar si el dispositivo tiene acceso a Internet:
+    public Boolean Internet(){
+
+        try {
+
+            Process p = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.es");
+
+            int x = p.waitFor();
+            boolean conexión = (x == 0);
+            return conexión;
+
+        }
+
+        catch (Exception e) {
+            return false;
+        }
+
     }
 
     // Inflamos el layout para mostrar los items del menú:
@@ -218,17 +275,20 @@ public class MainActivity extends AppCompatActivity {
             String json = "";
 
             try {
+
                 StringBuilder resultado = new StringBuilder();
                 URL url = new URL( cadenaUrl + "index.php?" + strings[0] + "=" + strings[1]);
                 con = (HttpURLConnection) url.openConnection();
+
                 BufferedReader reader = new BufferedReader( new InputStreamReader( con.getInputStream()));
                 while ((linea=reader.readLine())!=null){
                     resultado.append( linea );
                 }
+
                 JSONObject respuestaJSON = new JSONObject( resultado.toString() );
-                System.out.println(respuestaJSON.get( "rutafile" ));
                 json = respuestaJSON.toString();
-                //JSONArray arrayJSON = respuestaJSON.getJSONArray(  );
+                //System.out.println(respuestaJSON.get( "rutafile" ));
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
