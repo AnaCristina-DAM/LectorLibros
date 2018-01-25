@@ -111,7 +111,10 @@ public class MainActivity extends AppCompatActivity {
                 }else if((autor != null) && (!autor.equals(""))){
                     // buscarlibro.execute( "autor", autor );
                 }else{
-                    Toast.makeText(getApplicationContext(),"No se ha introducido ningun campo.",Toast.LENGTH_SHORT).show();
+                    String text = getResources().getString(R.string.b_noDatos);
+                    Spannable centeredText = new SpannableString(text);
+                    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                    Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
                 }
             }
         } );
