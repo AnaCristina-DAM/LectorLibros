@@ -30,6 +30,7 @@
     <string name="b_autor">AUTOR</string>
     <string name="b_texto">TEXTO</string>
     <string name="b_descargar">DESCARGAR</string>
+    <string name="b_noEncontrado">NO SE HA NINGÚN LIBRO CON LOS DATOS INDICADOS.</string>
 
     <!-- Lista de libros. -->
     <string name="lst_lista">LISTA DE LIBROS</string>

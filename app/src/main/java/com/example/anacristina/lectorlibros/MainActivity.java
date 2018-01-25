@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -22,6 +23,35 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.SQLOutput;
+
+
 public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout l_principal;
@@ -32,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView lb_autor;
     private EditText txt_autor;
     private Button bt_buscar;
+
+    BuscarLibro buscarlibro;
+    JSONObject libro;
 
     // CONSTANTE UTILIZADA PARA SOLICITAR PERMISOS DE ALMACENAMIENTO:
     private static final int P_ALMACENAMIENTO = 1 ;
@@ -57,8 +90,31 @@ public class MainActivity extends AppCompatActivity {
         lb_autor = (TextView) findViewById(R.id.lb_autor);
         txt_autor = (EditText) findViewById(R.id.txt_autor);
 
+
+        // JSON:
+        libro = new JSONObject(  );
+
+        // Objeto - DescargarLibro:
+        buscarlibro = new BuscarLibro();
+
         // BOTON - Buscar:
         bt_buscar = (Button) findViewById(R.id.bt_buscar);
+        // Ponemos el botón "BUSCAR" en escucha:
+        bt_buscar.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String titulo = txt_titulo.getText().toString();
+                String autor = txt_autor.getText().toString();
+                System.out.println(titulo);
+                if((titulo != null) && (!titulo.equals(""))) {
+                    buscarlibro.execute( "titulo", titulo );
+                }else if((autor != null) && (!autor.equals(""))){
+                    // buscarlibro.execute( "autor", autor );
+                }else{
+                    Toast.makeText(getApplicationContext(),"No se ha introducido ningun campo.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        } );
 
         // Comprobamos los permisos:
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
@@ -145,6 +201,63 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return false;
+    }
+
+    // Clase que nos permite buscar libros en un servidor:
+    public class BuscarLibro extends AsyncTask<String,Integer,String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            String linea = null;
+            HttpURLConnection con = null;
+            String cadenaUrl = "http://mywebmario.000webhostapp.com/lectorlibrosmaster/";
+            String json = "";
+
+            try {
+                StringBuilder resultado = new StringBuilder();
+                URL url = new URL( cadenaUrl + "index.php?" + strings[0] + "=" + strings[1]);
+                con = (HttpURLConnection) url.openConnection();
+                BufferedReader reader = new BufferedReader( new InputStreamReader( con.getInputStream()));
+                while ((linea=reader.readLine())!=null){
+                    resultado.append( linea );
+                }
+                JSONObject respuestaJSON = new JSONObject( resultado.toString() );
+                System.out.println(respuestaJSON.get( "rutafile" ));
+                json = respuestaJSON.toString();
+                //JSONArray arrayJSON = respuestaJSON.getJSONArray(  );
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            super.onPostExecute( s );
+
+            // Si el libro que busca el usuario está en el servidor, lanzamos una nueva actividad para descargarlo:
+            try {
+                libro = new JSONObject( s );
+                Intent intent = new Intent( getApplicationContext(),DescargaActivity.class );
+                intent.putExtra("datoslibro",s );
+                startActivity( intent );
+            }
+
+            // Si el libro que busca el usuario no está en el servidor, mostramos un mensaje indicando que no se ha encontrado el libro:
+            catch (JSONException e) {
+                String text = getResources().getString(R.string.b_noEncontrado);
+                Spannable centeredText = new SpannableString(text);
+                centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
+            }
+
+        }
     }
 
 

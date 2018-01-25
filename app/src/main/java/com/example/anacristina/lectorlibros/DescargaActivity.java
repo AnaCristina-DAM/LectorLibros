@@ -73,7 +73,7 @@ public class DescargaActivity extends AppCompatActivity {
 
             String linea = null;
             HttpURLConnection con = null;
-            String cadenaUrl = "http://192.168.1.34/librolectormaster/";
+            String cadenaUrl = "http://mywebmario.000webhostapp.com/lectorlibrosmaster/";
 
             try {
 
@@ -144,7 +144,7 @@ public class DescargaActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute( s );
-            Toast.makeText( getApplicationContext(),"Descarga completada",Toast.LENGTH_SHORT ).show();
+            Toast.makeText( getApplicationContext(),"Descarga completada.",Toast.LENGTH_SHORT ).show();
             Intent intent = new Intent(getApplicationContext(),BibliotecaActivity.class);
             startActivity( intent );
         }
