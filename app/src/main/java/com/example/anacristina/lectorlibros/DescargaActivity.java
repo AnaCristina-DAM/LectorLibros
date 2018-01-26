@@ -29,7 +29,6 @@ public class DescargaActivity extends AppCompatActivity {
     TextView tb_titulo,tb_autor,tb_isbn;
     Button bt_descargar;
     JSONObject libro;
-    DescargarLibro descargarlibro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class DescargaActivity extends AppCompatActivity {
         tb_autor = (TextView) findViewById( R.id.tb_autor );
         bt_descargar =(Button) findViewById( R.id.bt_descargar );
 
-        descargarlibro = new DescargarLibro();
+
         String datoslibro = getIntent().getExtras().getString( "datoslibro" );
 
         try {
@@ -60,6 +59,7 @@ public class DescargaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    DescargarLibro descargarlibro = new DescargarLibro();
                     descargarlibro.execute(libro.get( "rutafile" ).toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,7 +114,6 @@ public class DescargaActivity extends AppCompatActivity {
                     // TEXTO:
 
                     String texto = "";
-                    String separator = System.getProperty( "line.separator" );
 
                     int x = 1;
                     while ((linea = reader.readLine()) != null) {

@@ -65,8 +65,8 @@ public class ListaActivity extends AppCompatActivity {
                 //Obtencion del texto de dicho libro.
                 String texto = libro_selec.getTexto().toString();
                 // > Si el texto es muy largo, sólo guardamos los primeros 10000 caracteres:
-                if (texto.length()>5000){
-                    texto = texto.substring(0,5000);
+                if (texto.length()>1000){
+                    texto = texto.substring(0,1000);
                 }
 
                 //Mandar titulo y texto en el intent.

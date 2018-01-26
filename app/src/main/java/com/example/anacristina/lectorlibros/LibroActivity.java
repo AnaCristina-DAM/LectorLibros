@@ -88,7 +88,7 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
 
         int i=0;
         while (i < cadena.length){
-            textToSpeech.speak( cadena[i] , TextToSpeech.QUEUE_ADD, null, null );
+            speak( cadena[i] );
             i=i+1;
         }
 
@@ -101,7 +101,7 @@ public class LibroActivity extends AppCompatActivity implements TextToSpeech.OnI
 
         //textToSpeech.setVoice(new Voice());
 
-        textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+        textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, null, null);
         textToSpeech.setSpeechRate(0.0f);
         textToSpeech.setPitch(0.0f);
 

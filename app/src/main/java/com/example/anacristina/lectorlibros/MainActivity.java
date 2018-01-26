@@ -107,38 +107,27 @@ public class MainActivity extends AppCompatActivity {
                 // Comprobamos si el dispositivo tiene conexión:
                 if(Conexion(MainActivity.this)){
 
-                    // Comprobamos si el dispositivo tiene acceso a Internet:
-                    //if(Internet()){
+                    String titulo = txt_titulo.getText().toString();
+                    String autor = txt_autor.getText().toString();
 
-                        String titulo = txt_titulo.getText().toString();
-                        String autor = txt_autor.getText().toString();
+                    if((titulo != null) && (!titulo.equals(""))) {
 
-                        if((titulo != null) && (!titulo.equals(""))) {
+                        // Iniciamos una tarea asíncrona para buscar el libro:
+                        BuscarLibro buscarlibro = new BuscarLibro();
+                        buscarlibro.execute( "titulo", titulo );
 
-                            // Iniciamos una tarea asíncrona para buscar el libro:
-                            BuscarLibro buscarlibro = new BuscarLibro();
-                            buscarlibro.execute( "titulo", titulo );
-
-                        }
-                        else if((autor != null) && (!autor.equals(""))){
-                            // Iniciamos una tarea asíncrona para buscar el libro:
-                            // BuscarLibro buscarlibro = new BuscarLibro();
-                            // buscarlibro.execute( "autor", autor );
-                        }
-                        else{
-                            String text = getResources().getString(R.string.b_noDatos);
-                            Spannable centeredText = new SpannableString(text);
-                            centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                            Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
-                        }
-
-                    //}
-                    //else{
-                    //    String text = getResources().getString(R.string.c_noConexion);
-                    //    Spannable centeredText = new SpannableString(text);
-                    //    centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                    //    Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
-                    //}
+                    }
+                    else if((autor != null) && (!autor.equals(""))){
+                        // Iniciamos una tarea asíncrona para buscar el libro:
+                        // BuscarLibro buscarlibro = new BuscarLibro();
+                        // buscarlibro.execute( "autor", autor );
+                    }
+                    else{
+                        String text = getResources().getString(R.string.b_noDatos);
+                        Spannable centeredText = new SpannableString(text);
+                        centeredText.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),0, text.length() - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                        Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
+                    }
 
                 }
                 else{
@@ -148,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText( MainActivity.this, centeredText, Toast.LENGTH_SHORT ).show();
                 }
             }
+
         } );
 
         // Comprobamos los permisos:
